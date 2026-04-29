@@ -319,7 +319,7 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,10vw,9rem);line-he
 .port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .pi{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4;background:#0a0a0f}
 .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.16,1,.3,1);image-rendering:-webkit-optimize-contrast;image-rendering:high-quality;backface-visibility:hidden;transform:translateZ(0)}
 .pi:hover .ph img{transform:scale(1.04)}
 /* VIDEO */
 .port-video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.16,1,.3,1)}
@@ -721,30 +721,16 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,10vw,9rem);line-he
           <div class="po"><span class="p-tag">Henkilökuvaus</span><span class="p-ttl">Muotokuva</span></div>
         </div>
 
-        <div class="pi pi-video" data-cat="tapahtuma" style="background:#0d1520">
+        <div class="pi pi-yt" data-cat="tapahtuma" onclick="openYoutubeLightbox('eqVajM0pX_c')" style="background:#0d1520;cursor:pointer">
           <div class="ph">
-            <video src="kuvat%20ja%20videot/K%C3%A4rkk%C3%A4isen%20avajaiset.mp4" muted loop playsinline preload="none" class="port-video"></video>
+            <img src="https://img.youtube.com/vi/eqVajM0pX_c/hqdefault.jpg" alt="Kärkkäisen avajaiset" loading="lazy" decoding="async"/>
             <div class="video-play-icon">▶</div>
           </div>
         </div>
 
-        <div class="pi pi-video" data-cat="tapahtuma" style="background:#0d1520">
+        <div class="pi pi-yt" data-cat="tapahtuma" onclick="openYoutubeLightbox('-rmBbsYOGfQ')" style="background:#0d1520;cursor:pointer">
           <div class="ph">
-            <video src="kuvat%20ja%20videot/K%C3%A4rkk%C3%A4isen%20katto.mp4" muted loop playsinline preload="none" class="port-video"></video>
-            <div class="video-play-icon">▶</div>
-          </div>
-        </div>
-
-        <div class="pi pi-video" data-cat="tapahtuma" style="background:#0d1520">
-          <div class="ph">
-            <video src="kuvat%20ja%20videot/Powerofsun%20vidi.mov" muted loop playsinline preload="none" class="port-video"></video>
-            <div class="video-play-icon">▶</div>
-          </div>
-        </div>
-
-        <div class="pi pi-yt" data-cat="tapahtuma" data-yt="CxOth6NddFo" onclick="openYoutubeLightbox('CxOth6NddFo')" style="background:#0d1520;cursor:pointer">
-          <div class="ph">
-            <img src="https://img.youtube.com/vi/CxOth6NddFo/hqdefault.jpg" alt="YouTube-video" loading="lazy" decoding="async"/>
+            <img src="https://img.youtube.com/vi/-rmBbsYOGfQ/hqdefault.jpg" alt="Kärkkäinen" loading="lazy" decoding="async"/>
             <div class="video-play-icon">▶</div>
           </div>
         </div>
