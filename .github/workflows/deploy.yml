@@ -41,6 +41,9 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
+          # Supabase publishable key — turvallinen lähdekoodissa, RLS estää kaiken paitsi INSERTin
+          NEXT_PUBLIC_SUPABASE_URL: https://wxqmaubxsqvbbezfzvta.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: sb_publishable_vPetv91Nf6_YbcefIyTH-A_0eODdYuK
 
       - name: Add .nojekyll
         run: touch out/.nojekyll

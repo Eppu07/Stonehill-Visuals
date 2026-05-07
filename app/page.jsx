@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
+import { supabase } from './lib/supabase';
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mzdylnpv';
 const MAPS_QUERY = 'Opaalikatu+4,+60100+Sein%C3%A4joki';
@@ -139,20 +140,60 @@ export default function Page() {
     const isPrivate = type === 'yksityinen';
     setSending(true);
     const form = isPrivate ? formPrivate.current : formBusiness.current;
-    const data = new FormData(form);
-    data.append('varaustyyppi', isPrivate ? 'Yksityishenkilö' : 'Yritys / Organisaatio');
-    if (!isPrivate && cbValues.length) data.append('kaytto', cbValues.join(', '));
-    data.append('_subject', isPrivate
-      ? 'Uusi varaus (yksityishenkilö) – stonehill.architect'
-      : 'Uusi varaus (yritys) – stonehill.architect');
-    const userEmail = data.get('sahkoposti');
-    if (userEmail) data.append('_replyto', userEmail);
+    const fd = new FormData(form);
+    const get = (k) => (fd.get(k) || '').toString().trim() || null;
+
+    const row = {
+      booking_type: isPrivate ? 'yksityinen' : 'yritys',
+      etunimi: get('etunimi'),
+      sukunimi: get('sukunimi'),
+      sahkoposti: get('sahkoposti'),
+      puhelin: get('puhelin'),
+      yritys: get('yritys'),
+      palvelu: get('palvelu'),
+      kuvaustyyppi: get('kuvaustyyppi') === 'Muu' ? get('kuvaustyyppiMuu') : get('kuvaustyyppi'),
+      sijainti: get('sijainti'),
+      pvm: get('pvm'),
+      kaytto: !isPrivate && cbValues.length
+        ? [...cbValues, get('kayttoMuu')].filter(Boolean).join(', ')
+        : null,
+      lisatiedot: get('lisatiedot'),
+      user_agent: typeof navigator !== 'undefined' ? navigator.userAgent.slice(0, 250) : null
+    };
+
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-      if (res.ok) {
+      // 1) Tallennetaan ensin Supabaseen (varsinainen rekisteri)
+      let supabaseOk = false;
+      if (supabase) {
+        const { error } = await supabase.from('bookings').insert(row);
+        if (!error) supabaseOk = true;
+        else console.error('Supabase insert failed:', error);
+      }
+
+      // 2) Email-ilmoitus Formspreen kautta (rinnalla)
+      const fsData = new FormData(form);
+      fsData.append('varaustyyppi', isPrivate ? 'Yksityishenkilö' : 'Yritys / Organisaatio');
+      if (!isPrivate && cbValues.length) fsData.append('kaytto', cbValues.join(', '));
+      fsData.append('_subject', isPrivate
+        ? 'Uusi varaus (yksityishenkilö) – stonehill.architect'
+        : 'Uusi varaus (yritys) – stonehill.architect');
+      if (row.sahkoposti) fsData.append('_replyto', row.sahkoposti);
+      let formspreeOk = false;
+      try {
+        const res = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST', body: fsData, headers: { Accept: 'application/json' }
+        });
+        formspreeOk = res.ok;
+      } catch (e) {
+        console.warn('Formspree failed:', e);
+      }
+
+      if (supabaseOk || formspreeOk) {
         setSuccess(true);
         setBookType(null);
-      } else throw new Error('status ' + res.status);
+      } else {
+        throw new Error('molemmat lähetysreitit epäonnistuivat');
+      }
     } catch (err) {
       console.error(err);
       alert(t(
