@@ -9,26 +9,26 @@ const MAPS_LINK = `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY}
 const MAPS_EMBED = `https://maps.google.com/maps?q=${MAPS_QUERY}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 
 const PORTFOLIO = [
-  { src: '/kuvat ja videot/_DSC9541.jpg', alt: 'Yrityskuvaus henkilökuva' },
-  { src: '/kuvat ja videot/_DSC9582-2.jpg', alt: 'Yrityskuvaus ulkona' },
-  { src: '/kuvat ja videot/_DSC9556-3.jpg', alt: 'Yrityskuvaus autolla' },
-  { src: '/kuvat ja videot/_DSC9485.jpg', alt: 'Yrityskuvaus toimisto' },
-  { src: '/kuvat ja videot/_DSC9458.jpg', alt: 'Yrityskuvaus koulutus' },
-  { src: '/kuvat ja videot/_DSC9641.jpg', alt: 'Yrityskuvaus brändikuva' },
-  { src: '/kuvat ja videot/_DSC9646.jpg', alt: 'Yrityskuvaus brändikuva' },
-  { src: '/kuvat ja videot/_DSC9661.jpg', alt: 'Yrityskuvaus edustuskuva' },
-  { src: '/kuvat ja videot/C8053T01.jpg', alt: 'Yrityskuvaus tilakuvaus' },
-  { src: '/kuvat ja videot/_DSC1765.jpg', alt: 'Henkilökuvaus ylioppilaskuva' },
-  { src: '/kuvat ja videot/_DSC1736.jpg', alt: 'Henkilökuvaus muotokuva' },
-  { src: '/kuvat ja videot/_DSC1945.jpg', alt: 'Henkilökuvaus ulkona' },
-  { src: '/kuvat ja videot/_DSC1769.jpg', alt: 'Henkilökuvaus luonnossa' },
-  { src: '/kuvat ja videot/_DSC0947.jpg', alt: 'Henkilökuvaus muotokuva' },
-  { src: '/kuvat ja videot/_DSC0950.jpg', alt: 'Henkilökuvaus muotokuva' },
-  { src: '/kuvat ja videot/_DSC0951.jpg', alt: 'Henkilökuvaus muotokuva' },
-  { src: '/kuvat ja videot/_DSC0959-2.jpg', alt: 'Henkilökuvaus muotokuva' },
-  { src: '/kuvat ja videot/_DSC0965.jpg', alt: 'Henkilökuvaus muotokuva' },
-  { src: '/kuvat ja videot/DSC09871.jpg', alt: 'Henkilökuvaus muotokuva' },
-  { src: '/kuvat ja videot/DSC09896.jpg', alt: 'Henkilökuvaus muotokuva' }
+  { src: '/portfolio/_DSC9541.jpg', alt: 'Yrityskuvaus henkilökuva' },
+  { src: '/portfolio/_DSC9582-2.jpg', alt: 'Yrityskuvaus ulkona' },
+  { src: '/portfolio/_DSC9556-3.jpg', alt: 'Yrityskuvaus autolla' },
+  { src: '/portfolio/_DSC9485.jpg', alt: 'Yrityskuvaus toimisto' },
+  { src: '/portfolio/_DSC9458.jpg', alt: 'Yrityskuvaus koulutus' },
+  { src: '/portfolio/_DSC9641.jpg', alt: 'Yrityskuvaus brändikuva' },
+  { src: '/portfolio/_DSC9646.jpg', alt: 'Yrityskuvaus brändikuva' },
+  { src: '/portfolio/_DSC9661.jpg', alt: 'Yrityskuvaus edustuskuva' },
+  { src: '/portfolio/C8053T01.jpg', alt: 'Yrityskuvaus tilakuvaus' },
+  { src: '/portfolio/_DSC1765.jpg', alt: 'Henkilökuvaus ylioppilaskuva' },
+  { src: '/portfolio/_DSC1736.jpg', alt: 'Henkilökuvaus muotokuva' },
+  { src: '/portfolio/_DSC1945.jpg', alt: 'Henkilökuvaus ulkona' },
+  { src: '/portfolio/_DSC1769.jpg', alt: 'Henkilökuvaus luonnossa' },
+  { src: '/portfolio/_DSC0947.jpg', alt: 'Henkilökuvaus muotokuva' },
+  { src: '/portfolio/_DSC0950.jpg', alt: 'Henkilökuvaus muotokuva' },
+  { src: '/portfolio/_DSC0951.jpg', alt: 'Henkilökuvaus muotokuva' },
+  { src: '/portfolio/_DSC0959-2.jpg', alt: 'Henkilökuvaus muotokuva' },
+  { src: '/portfolio/_DSC0965.jpg', alt: 'Henkilökuvaus muotokuva' },
+  { src: '/portfolio/DSC09871.jpg', alt: 'Henkilökuvaus muotokuva' },
+  { src: '/portfolio/DSC09896.jpg', alt: 'Henkilökuvaus muotokuva' }
 ];
 
 const FAQ = [
@@ -187,7 +187,7 @@ export default function Page() {
         <section className="hero">
           <iframe
             className="hero-video"
-            src="https://www.youtube-nocookie.com/embed/CxOth6NddFo?autoplay=1&mute=1&loop=1&playlist=CxOth6NddFo&controls=0&showinfo=0&rel=0&modestbranding=1&disablekb=1&iv_load_policy=3&playsinline=1&fs=0&cc_load_policy=0"
+            src="https://www.youtube-nocookie.com/embed/CxOth6NddFo?autoplay=1&mute=1&loop=1&playlist=CxOth6NddFo&controls=0&showinfo=0&rel=0&modestbranding=1&disablekb=1&iv_load_policy=3&playsinline=1&fs=0&cc_load_policy=0&vq=hd1080&hd=1"
             allow="autoplay; encrypted-media; picture-in-picture"
             aria-hidden="true"
             tabIndex="-1"

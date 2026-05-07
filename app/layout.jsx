@@ -13,7 +13,7 @@ export const metadata = {
     description: 'Ammattitaitoinen valokuvaaja ja videotuottaja Seinäjoella. Valokuvaus, videotuotanto ja somehallinnointi.',
     siteName: 'stonehill.architect',
     locale: 'fi_FI',
-    images: [{ url: 'https://stonehillvisuals.fi/kuvat%20ja%20videot/_DSC9541.jpg', width: 1200, height: 630 }]
+    images: [{ url: 'https://stonehillvisuals.fi/portfolio/_DSC9541.jpg', width: 1200, height: 630 }]
   }
 };
 
@@ -28,7 +28,7 @@ const schema = {
       description: 'Ammattitaitoinen valokuvaaja ja videokuvaaja Seinäjoella ja Etelä-Pohjanmaalla. Valokuvaus, videotuotanto ja somehallinnointi.',
       url: 'https://stonehillvisuals.fi',
       email: 'elias.kivimaki@gmail.com',
-      image: 'https://stonehillvisuals.fi/kuvat%20ja%20videot/_DSC9541.jpg',
+      image: 'https://stonehillvisuals.fi/portfolio/_DSC9541.jpg',
       priceRange: '€€',
       address: {
         '@type': 'PostalAddress',
