@@ -1,17 +1,29 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production';
+// DEPLOY_TARGET=github-pages -> staattinen vienti basePathilla
+// muut (Vercel, paikallinen dev) -> normaali Next.js, image-optimointi päällä
+const isPages = process.env.DEPLOY_TARGET === 'github-pages';
 const repo = 'Stonehill.architect';
 
-const nextConfig = {
+const baseConfig = {
   reactStrictMode: true,
-  // Tuottaa staattisen sivuston `out/`-kansioon — toimii GitHub Pagesissa
-  output: 'export',
-  trailingSlash: true,
-  // Project Pages servaa /Stonehill.architect/-alipolun alta
-  basePath: isProd ? `/${repo}` : '',
-  assetPrefix: isProd ? `/${repo}/` : '',
-  // GitHub Pages ei tue Next.js:n image-optimointia, joten servoidaan kuvat sellaisenaan
-  images: { unoptimized: true }
+  images: isPages
+    ? { unoptimized: true }
+    : {
+        formats: ['image/avif', 'image/webp'],
+        deviceSizes: [360, 640, 828, 1080, 1280, 1600, 1920],
+        imageSizes: [200, 320, 480, 640, 800],
+        minimumCacheTTL: 60 * 60 * 24 * 30
+      }
 };
+
+const nextConfig = isPages
+  ? {
+      ...baseConfig,
+      output: 'export',
+      trailingSlash: true,
+      basePath: `/${repo}`,
+      assetPrefix: `/${repo}/`
+    }
+  : baseConfig;
 
 export default nextConfig;
