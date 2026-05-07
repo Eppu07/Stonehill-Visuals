@@ -1,0 +1,7 @@
+# Linguist – jätä kuvat & lock-tiedostot pois kielitilastosta
+public/** linguist-vendored
+*.jpg linguist-detectable=false
+*.JPG linguist-detectable=false
+*.png linguist-detectable=false
+*.jpeg linguist-detectable=false
+package-lock.json linguist-generated
