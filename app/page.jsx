@@ -3,11 +3,11 @@
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { supabase } from './lib/supabase';
+import { useContent } from './lib/useContent';
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mzdylnpv';
-const MAPS_QUERY = 'Opaalikatu+4,+60100+Sein%C3%A4joki';
-const MAPS_LINK = `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY}`;
-const MAPS_EMBED = `https://maps.google.com/maps?q=${MAPS_QUERY}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+const mapsLink = (addr) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`;
+const mapsEmbed = (addr) => `https://maps.google.com/maps?q=${encodeURIComponent(addr)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 
 const PORTFOLIO = [
   { src: '/portfolio/_DSC9541.jpg', alt: 'Yrityskuvaus henkilökuva' },
@@ -85,8 +85,12 @@ export default function Page() {
   const [privateTyyppi, setPrivateTyyppi] = useState('');
   const formPrivate = useRef(null);
   const formBusiness = useRef(null);
+  const content = useContent();
 
   const t = (fi, en) => (lang === 'fi' ? fi : en);
+
+  // Muuntaa puhelinnumeron tel:-linkkikäyttöön (poistaa välilyönnit)
+  const telHref = `tel:${(content.phone || '').replace(/\s+/g, '')}`;
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -237,7 +241,7 @@ export default function Page() {
           />
           <div className="hero-overlay" />
           <div className="hero-content">
-            <h1>{t('Valokuvaaja', 'Photographer')}<br />Elias Kivimäki</h1>
+            <h1>{content.hero_title}</h1>
           </div>
         </section>
 
@@ -247,18 +251,8 @@ export default function Page() {
             <div className="about-inner">
               <span className="tag">{t('Minä', 'About')}</span>
               <h2>{t('Elias Kivimäki', 'Elias Kivimäki')}</h2>
-              <p className="about-text">
-                {t(
-                  'Olen 19-vuotias juuri lukiosta valmistunut valokuvaaja Seinäjoelta. Olen kuvannut kahden vuoden ajan, ja lukio-opintojen ohella olen perehtynyt vapaa-ajallani markkinointiin sekä sosiaalisen median ja visuaalisen viestinnän rooliin brändityössä.',
-                  'I’m a 19-year-old photographer from Seinäjoki, just graduated from upper secondary school. I’ve been shooting for two years, and alongside my studies I’ve spent my free time learning about marketing and the role of social media and visual communication in brand building.'
-                )}
-              </p>
-              <p className="about-text">
-                {t(
-                  'Tarjoan valokuvaus-, videotuotanto- ja some-palveluita yrityksille ja yksityisille asiakkaille. Valokuvauksessa kuvaan niin henkilöitä, yrityksiä, tapahtumia kuin tuotteitakin. Videotuotanto kattaa koko prosessin suunnittelusta editointiin – lyhyistä somevideoista pidempiin yrityssisältöihin.',
-                  'I offer photography, video production and social media services for both businesses and private clients. In photography I shoot portraits, businesses, events and products alike. Video production covers the entire process from planning to editing – from short social videos to longer corporate content.'
-                )}
-              </p>
+              <p className="about-text">{content.about_text_1}</p>
+              <p className="about-text">{content.about_text_2}</p>
             </div>
           </div>
         </section>
@@ -271,10 +265,10 @@ export default function Page() {
               {/* Valokuvaus */}
               <div className="svc-card">
                 <h3>{t('Valokuvaus', 'Photography')}</h3>
-                <p>{t('Henkilökuvat, yrityskuvaukset ja sisältö someen.', 'Portraits, business shoots and content for social media.')}</p>
+                <p>{content.service_photo_desc}</p>
                 <ul className="svc-list">
-                  <li><span>{t('Yo- ja rippikuvat', 'Graduation photos')}</span><span className="svc-price">80 €</span></li>
-                  <li><span>{t('Yritysvalokuvat', 'Business photos')}</span><span className="svc-price">240 €</span></li>
+                  <li><span>{t('Yo- ja rippikuvat', 'Graduation photos')}</span><span className="svc-price">{content.price_yo}</span></li>
+                  <li><span>{t('Yritysvalokuvat', 'Business photos')}</span><span className="svc-price">{content.price_yritys}</span></li>
                   <li><span>{t('Somekuvat', 'Social media photos')}</span><span className="svc-price">{t('Sopimuksen mukaan', 'On request')}</span></li>
                 </ul>
               </div>
@@ -282,7 +276,7 @@ export default function Page() {
               {/* Videotuotanto — featured */}
               <div className="svc-card svc-featured">
                 <h3>{t('Videotuotanto', 'Video production')}</h3>
-                <p>{t('Liikkuvaa kuvaa, joka jää mieleen.', 'Motion that sticks.')}</p>
+                <p>{content.service_video_desc}</p>
                 <ul className="svc-list">
                   <li><span>{t('Häävideot', 'Wedding videos')}</span></li>
                   <li><span>{t('Tapahtumavideot', 'Event videos')}</span></li>
@@ -290,14 +284,14 @@ export default function Page() {
                 </ul>
                 <div className="svc-foot">
                   <span className="svc-foot-unit">{t('Hinta alkaen', 'From')}</span>
-                  <span className="svc-foot-price">400 €</span>
+                  <span className="svc-foot-price">{content.price_video}</span>
                 </div>
               </div>
 
               {/* Some */}
               <div className="svc-card">
                 <h3>{t('Some', 'Social media')}</h3>
-                <p>{t('Sosiaalisen median alustojen hallinnointi ja postaukset.', 'Social media management and publishing.')}</p>
+                <p>{content.service_some_desc}</p>
                 <ul className="svc-list">
                   <li><span>{t('Sisältösuunnittelu', 'Content planning')}</span></li>
                   <li><span>{t('Postausten tuotanto', 'Post production')}</span></li>
@@ -305,7 +299,7 @@ export default function Page() {
                 </ul>
                 <div className="svc-foot">
                   <span className="svc-foot-unit">{t('Kuukausihinta', 'Monthly')}</span>
-                  <span className="svc-foot-price">350 €/kk</span>
+                  <span className="svc-foot-price">{content.price_some}</span>
                 </div>
               </div>
             </div>
@@ -339,13 +333,13 @@ export default function Page() {
               <h2>{t('Ota yhteyttä', 'Get in touch')}</h2>
               <div className="contact-info">
                 <div><strong>stonehill.architect</strong> · Elias Kivimäki</div>
-                <div>Opaalikatu 4, 60100 Seinäjoki</div>
+                <div>{content.address}</div>
                 <div>
-                  <a href="mailto:elias.kivimaki@gmail.com">elias.kivimaki@gmail.com</a>
+                  <a href={`mailto:${content.email}`}>{content.email}</a>
                 </div>
                 <div className="contact-call">
                   {t('Soita tai jätä viestiä: ', 'Call or leave a message: ')}
-                  <a href="tel:+358407209804"><strong>040 720 9804</strong></a>
+                  <a href={telHref}><strong>{content.phone}</strong></a>
                 </div>
               </div>
               <div className="cta-row">
@@ -353,14 +347,14 @@ export default function Page() {
               </div>
               <div className="map-wrap">
                 <iframe
-                  src={MAPS_EMBED}
+                  src={mapsEmbed(content.address)}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Opaalikatu 4, Seinäjoki"
+                  title={content.address}
                   allowFullScreen
                 />
               </div>
-              <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="map-link">
+              <a href={mapsLink(content.address)} target="_blank" rel="noopener noreferrer" className="map-link">
                 {t('Avaa Google Mapsissa →', 'Open in Google Maps →')}
               </a>
             </div>
@@ -371,10 +365,7 @@ export default function Page() {
           <div className="ft-inner">
             <button className="ft-logo" onClick={goHome}>STONEHILL.ARCHITECT</button>
             <div className="ft-copy">
-              {t(
-                '© 2025 Elias Kivimäki | stonehill.architect · Opaalikatu 4, Seinäjoki · elias.kivimaki@gmail.com',
-                '© 2025 Elias Kivimäki | stonehill.architect · Opaalikatu 4, Seinäjoki · elias.kivimaki@gmail.com'
-              )}
+              © 2025 Elias Kivimäki | stonehill.architect · {content.address} · {content.email}
             </div>
           </div>
         </div>
