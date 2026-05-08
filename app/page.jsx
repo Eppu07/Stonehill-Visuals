@@ -251,8 +251,8 @@ export default function Page() {
             <div className="about-inner">
               <span className="tag">{t('Minä', 'About')}</span>
               <h2>{t('Elias Kivimäki', 'Elias Kivimäki')}</h2>
-              <p className="about-text">{content.about_text_1}</p>
-              <p className="about-text">{content.about_text_2}</p>
+              <p className="about-text">{t(content.about_text_1, content.about_text_1_en)}</p>
+              <p className="about-text">{t(content.about_text_2, content.about_text_2_en)}</p>
             </div>
           </div>
         </section>
@@ -265,9 +265,9 @@ export default function Page() {
               {/* Valokuvaus */}
               <div className="svc-card">
                 <h3>{t('Valokuvaus', 'Photography')}</h3>
-                <p>{content.service_photo_desc}</p>
                 <ul className="svc-list">
                   <li><span>{t('Yo- ja rippikuvat', 'Graduation photos')}</span><span className="svc-price">{content.price_yo}</span></li>
+                  <li><span>{t('Henkilökuvat', 'Portraits')}</span><span className="svc-price">{content.price_henkilo}</span></li>
                   <li><span>{t('Yritysvalokuvat', 'Business photos')}</span><span className="svc-price">{content.price_yritys}</span></li>
                   <li><span>{t('Somekuvat', 'Social media photos')}</span><span className="svc-price">{t('Sopimuksen mukaan', 'On request')}</span></li>
                 </ul>
@@ -276,7 +276,6 @@ export default function Page() {
               {/* Videotuotanto — featured */}
               <div className="svc-card svc-featured">
                 <h3>{t('Videotuotanto', 'Video production')}</h3>
-                <p>{content.service_video_desc}</p>
                 <ul className="svc-list">
                   <li><span>{t('Häävideot', 'Wedding videos')}</span></li>
                   <li><span>{t('Tapahtumavideot', 'Event videos')}</span></li>
@@ -291,12 +290,12 @@ export default function Page() {
               {/* Some */}
               <div className="svc-card">
                 <h3>{t('Some', 'Social media')}</h3>
-                <p>{content.service_some_desc}</p>
                 <ul className="svc-list">
                   <li><span>{t('Sisältösuunnittelu', 'Content planning')}</span></li>
                   <li><span>{t('Postausten tuotanto', 'Post production')}</span></li>
                   <li><span>{t('Julkaisu kanavissa', 'Publishing on channels')}</span></li>
                 </ul>
+                <p className="svc-note">{t(content.some_note, content.some_note_en)}</p>
                 <div className="svc-foot">
                   <span className="svc-foot-unit">{t('Kuukausihinta', 'Monthly')}</span>
                   <span className="svc-foot-price">{content.price_some}</span>
@@ -462,10 +461,8 @@ export default function Page() {
                       <label>{t('Kuvaustyyppi', 'Type of shoot')} <span className="req">*</span></label>
                       <select name="kuvaustyyppi" required value={privateTyyppi} onChange={(e) => { setPrivateTyyppi(e.target.value); if (e.target.value !== 'Muu') setPrivateMuu(''); }}>
                         <option value="">{t('Valitse...', 'Select...')}</option>
-                        <option value="Yo- ja rippikuvat">{t('Yo- ja rippikuvat (80 €)', 'Graduation photos (€80)')}</option>
+                        <option value="Yo- ja rippikuvat">{t('Yo- ja rippikuvat', 'Graduation photos')}</option>
                         <option value="Henkilökuvaus">{t('Henkilökuvaus', 'Portrait')}</option>
-                        <option value="Pari- ja perhekuvaus">{t('Pari- ja perhekuvaus', 'Couple / family')}</option>
-                        <option value="LinkedIn / profiilikuva">{t('LinkedIn / profiilikuva', 'LinkedIn / profile photo')}</option>
                         <option value="Muu">{t('Muu', 'Other')}</option>
                       </select>
                       {privateTyyppi === 'Muu' && (
@@ -501,10 +498,10 @@ export default function Page() {
                       <label>{t('Palvelu', 'Service')} <span className="req">*</span></label>
                       <select name="palvelu" required defaultValue="">
                         <option value="">{t('Valitse...', 'Select...')}</option>
-                        <option value="Videotuotanto">{t('Videotuotanto (alk. 400 €)', 'Video production (from €400)')}</option>
-                        <option value="Yritysvalokuvaus">{t('Yritysvalokuvaus (240 €)', 'Business photography (€240)')}</option>
+                        <option value="Videotuotanto">{t('Videotuotanto', 'Video production')}</option>
+                        <option value="Yritysvalokuvaus">{t('Yritysvalokuvaus', 'Business photography')}</option>
                         <option value="Tapahtumakuvaus">{t('Tapahtumakuvaus / -video', 'Event photo / video')}</option>
-                        <option value="Somehallinnointi">{t('Somehallinnointi (350 €/kk)', 'Social media management (€350/mo)')}</option>
+                        <option value="Somehallinnointi">{t('Somehallinnointi', 'Social media management')}</option>
                         <option value="Muu">{t('Muu', 'Other')}</option>
                       </select>
                     </div>

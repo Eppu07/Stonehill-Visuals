@@ -64,6 +64,7 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,10vw,9rem);line-he
 .svc-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
 .svc-foot-price{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;color:var(--blue);line-height:1}
 .svc-foot-unit{color:rgba(255,255,255,.4);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase}
+.svc-note{color:rgba(255,255,255,.55);font-size:.82rem;line-height:1.6;font-style:italic;font-weight:300;margin:14px 0 0}
 /* Featured (videotuotanto) */
 .svc-featured{background:linear-gradient(165deg,rgba(0,174,239,.12),rgba(0,174,239,.03) 60%,var(--gray));border-color:rgba(0,174,239,.45);box-shadow:0 18px 60px -20px rgba(0,174,239,.35)}
 .svc-featured:hover{background:linear-gradient(165deg,rgba(0,174,239,.18),rgba(0,174,239,.05) 60%,#0d0d14);border-color:var(--blue);transform:translateY(-6px)}

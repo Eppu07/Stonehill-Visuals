@@ -5,12 +5,14 @@ import { supabase } from '../lib/supabase';
 
 const FIELD_LABELS = {
   hero_title: 'Hero-otsikko',
-  about_text_1: 'Esittely – kappale 1',
-  about_text_2: 'Esittely – kappale 2',
-  service_photo_desc: 'Valokuvaus – kuvaus',
-  service_video_desc: 'Videotuotanto – kuvaus',
-  service_some_desc: 'Some – kuvaus',
+  about_text_1: 'Esittely – kappale 1 (FI)',
+  about_text_1_en: 'Esittely – kappale 1 (EN)',
+  about_text_2: 'Esittely – kappale 2 (FI)',
+  about_text_2_en: 'Esittely – kappale 2 (EN)',
+  some_note: 'Some – huomautus (FI)',
+  some_note_en: 'Some – huomautus (EN)',
   price_yo: 'Hinta: yo-/rippikuvat',
+  price_henkilo: 'Hinta: henkilökuvat',
   price_yritys: 'Hinta: yritysvalokuvat',
   price_video: 'Hinta: videotuotanto (alk.)',
   price_some: 'Hinta: somehallinnointi',
@@ -19,7 +21,9 @@ const FIELD_LABELS = {
   address: 'Osoite'
 };
 
-const LONG_FIELDS = new Set(['about_text_1', 'about_text_2', 'service_photo_desc', 'service_video_desc', 'service_some_desc']);
+const LONG_FIELDS = new Set(['about_text_1', 'about_text_1_en', 'about_text_2', 'about_text_2_en', 'some_note', 'some_note_en']);
+
+const FIELD_ORDER = Object.keys(FIELD_LABELS);
 
 export default function AdminPage() {
   const [session, setSession] = useState(null);
@@ -97,14 +101,17 @@ export default function AdminPage() {
     setError(null);
     const { error } = await supabase
       .from('content')
-      .update({ value: newValue })
-      .eq('key', key);
+      .upsert({ key, value: newValue, updated_at: new Date().toISOString() }, { onConflict: 'key' });
     setSavingKey(null);
     if (error) {
       setError(error.message);
       return;
     }
-    setRows(prev => prev.map(r => r.key === key ? { ...r, value: newValue, updated_at: new Date().toISOString() } : r));
+    setRows(prev => {
+      const exists = prev.some(r => r.key === key);
+      if (exists) return prev.map(r => r.key === key ? { ...r, value: newValue, updated_at: new Date().toISOString() } : r);
+      return [...prev, { key, value: newValue, updated_at: new Date().toISOString() }];
+    });
     setEdits(prev => { const { [key]: _, ...rest } = prev; return rest; });
     setSavedKey(key);
     setTimeout(() => setSavedKey(k => k === key ? null : k), 2500);
@@ -150,28 +157,29 @@ export default function AdminPage() {
       {error && <p className="admin-err">{error}</p>}
 
       <div className="admin-grid">
-        {rows.map((row) => {
-          const label = FIELD_LABELS[row.key] || row.key;
-          const isLong = LONG_FIELDS.has(row.key);
-          const draft = edits[row.key];
+        {FIELD_ORDER.map((key) => {
+          const row = rows.find(r => r.key === key) || { key, value: '' };
+          const label = FIELD_LABELS[key] || key;
+          const isLong = LONG_FIELDS.has(key);
+          const draft = edits[key];
           const dirty = draft !== undefined && draft !== row.value;
           const value = draft !== undefined ? draft : (row.value ?? '');
           return (
-            <div key={row.key} className={`admin-row${dirty ? ' dirty' : ''}`}>
+            <div key={key} className={`admin-row${dirty ? ' dirty' : ''}`}>
               <div className="admin-row-head">
-                <label htmlFor={`f-${row.key}`}>{label}</label>
-                <span className="admin-key">{row.key}</span>
+                <label htmlFor={`f-${key}`}>{label}</label>
+                <span className="admin-key">{key}</span>
               </div>
               {isLong ? (
-                <textarea id={`f-${row.key}`} rows={5} value={value} onChange={(e) => onChange(row.key, e.target.value)} />
+                <textarea id={`f-${key}`} rows={5} value={value} onChange={(e) => onChange(key, e.target.value)} />
               ) : (
-                <input id={`f-${row.key}`} type="text" value={value} onChange={(e) => onChange(row.key, e.target.value)} />
+                <input id={`f-${key}`} type="text" value={value} onChange={(e) => onChange(key, e.target.value)} />
               )}
               <div className="admin-row-foot">
-                <button onClick={() => save(row.key)} disabled={!dirty || savingKey === row.key}>
-                  {savingKey === row.key ? 'Tallennetaan…' : 'Tallenna'}
+                <button onClick={() => save(key)} disabled={!dirty || savingKey === key}>
+                  {savingKey === key ? 'Tallennetaan…' : 'Tallenna'}
                 </button>
-                {savedKey === row.key && <span className="admin-ok">Tallennettu ✓</span>}
+                {savedKey === key && <span className="admin-ok">Tallennettu ✓</span>}
               </div>
             </div>
           );
