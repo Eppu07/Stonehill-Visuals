@@ -72,8 +72,72 @@ function T({ fi, en, lang, html = false }) {
   return html ? <span dangerouslySetInnerHTML={{ __html: v }} /> : <>{v}</>;
 }
 
+const SERVICES = {
+  valokuvaus: {
+    fi: {
+      title: 'Valokuvaus',
+      intro: 'Ihmiset, brändit ja hetket — kuvina, jotka kestävät aikaa.',
+      h1: 'Tarinaa kuvan takana.',
+      p1: 'Valokuva ei ole pelkkä hetki — se on tunne, joka jää. Stonehill Architect kuvaa henkilöitä, yrityksiä ja tapahtumia tavalla, jossa jokainen kuva tukee laajempaa visuaalista tarinaa. Tavoitteemme ei ole vain dokumentoida, vaan tulkita.',
+      h2: 'Räätälöityjä kokonaisuuksia.',
+      p2: 'Yo- ja henkilökuvauksista yritysten brändi- ja edustuskuviin — jokainen kuvaus suunnitellaan asiakkaan tarpeiden ehdoilla. Lopputuloksena on harkittu kokonaisuus, joka istuu kanaviin, painotuotteisiin ja brändin pidempään kaareen.'
+    },
+    en: {
+      title: 'Photography',
+      intro: 'People, brands and moments — captured as images that stand the test of time.',
+      h1: 'A story behind the image.',
+      p1: 'A photograph is more than a moment — it is a feeling that lingers. Stonehill Architect photographs people, businesses and events in a way where every image supports a broader visual narrative. Our aim is not just to document, but to interpret.',
+      h2: 'Tailored sets, not single shots.',
+      p2: 'From graduation and portrait sessions to brand and editorial shoots for businesses — each session is designed around the client’s needs. The result is a considered body of work that fits across channels, print and the longer arc of the brand.'
+    },
+    img1: '/portfolio/_DSC9541.jpg',
+    img2: '/portfolio/_DSC1736.jpg'
+  },
+  videotuotanto: {
+    fi: {
+      title: 'Videotuotanto',
+      intro: 'Liikkuva kuva, joka herättää brändin eloon.',
+      h1: 'Suunnittelusta valmiiseen kuvaan.',
+      p1: 'Hyvä video ei synny kameran takana — se syntyy ajatuksesta. Viemme jokaisen tuotannon läpi konseptista käsikirjoitukseen, kuvauksiin ja editointiin asti, jotta lopputulos puhuu samaa kieltä kuin brändisi.',
+      h2: 'Häistä markkinointiin.',
+      p2: 'Häävideot, tapahtumavideot ja markkinointisisällöt — yhtä huolellisesti tuotettuna. Olipa kyseessä intiimi hetki tai laajempi yrityskampanja, lopputuloksena on visuaalinen tarina, joka tuntuu aidolta.'
+    },
+    en: {
+      title: 'Video production',
+      intro: 'Moving images that bring a brand to life.',
+      h1: 'From concept to final cut.',
+      p1: 'A good video doesn’t start behind the camera — it starts as an idea. We guide every production from concept and script to shooting and editing, so the final piece speaks the same language as your brand.',
+      h2: 'From weddings to marketing.',
+      p2: 'Wedding films, event coverage and marketing content — each crafted with the same care. Whether it is an intimate moment or a wider brand campaign, the result is a visual story that feels honest.'
+    },
+    img1: '/portfolio/_DSC9582-2.jpg',
+    img2: '/portfolio/_DSC9646.jpg'
+  },
+  some: {
+    fi: {
+      title: 'Sosiaalinen media',
+      intro: 'Sisältöä, joka erottuu — ei sattumalta vaan suunnittelulla.',
+      h1: 'Strategiaa, ei kohinaa.',
+      p1: 'Sosiaalinen media on brändin näkyvin pinta. Hyvä sisältö ei ole vain kauniita kuvia, vaan harkittua kokonaisuutta, joka rakentaa luottamusta ja tunnistettavuutta. Lähdemme aina liikkeelle siitä, mitä haluat sanoa ja kenelle.',
+      h2: 'Sisältöä, joka kestää selailun.',
+      p2: 'Sisältösuunnittelusta julkaisuihin asti hoidamme kanavasi puolestasi. Kuvaus, leikkaus, copy ja aikataulu — yhtenä yhtenäisenä pakettina. Sovimme volyymin ja kanavat yhdessä, jotta some on osa brändityötä eikä erillinen suoritus.'
+    },
+    en: {
+      title: 'Social media',
+      intro: 'Content that stands out — by design, not by chance.',
+      h1: 'Strategy, not noise.',
+      p1: 'Social media is the most visible surface of a brand. Good content isn’t just beautiful imagery — it is a considered whole that builds trust and recognition. We always start from what you want to say, and to whom.',
+      h2: 'Content that holds up to scrolling.',
+      p2: 'From planning to publishing, we run the channels for you. Photography, editing, copy and scheduling — as one coherent package. We agree the volume and platforms together so social becomes part of the brand work, not a separate task.'
+    },
+    img1: '/portfolio/_DSC0959-2.jpg',
+    img2: '/portfolio/DSC09896.jpg'
+  }
+};
+
 export default function Page() {
   const [page, setPage] = useState('home');
+  const [serviceKey, setServiceKey] = useState(null);
   const [lang, setLang] = useState('fi');
   const [menuOpen, setMenuOpen] = useState(false);
   const [lightbox, setLightbox] = useState(null);
@@ -117,6 +181,7 @@ export default function Page() {
   const goHome = () => { setPage('home'); setMenuOpen(false); };
   const goPortfolio = () => { setPage('portfolio'); setMenuOpen(false); };
   const goBooking = () => { setPage('booking'); setMenuOpen(false); setSuccess(false); setBookType(null); };
+  const goService = (key) => { setServiceKey(key); setPage('service'); setMenuOpen(false); };
 
   const scrollTo = (id) => {
     setMenuOpen(false);
@@ -249,9 +314,15 @@ export default function Page() {
         <section id="about" className="about-section">
           <div className="wrap">
             <div className="about-inner">
-              <h2>{t('Elias Kivimäki', 'Elias Kivimäki')}</h2>
-              <p className="about-text">{t(content.about_text_1, content.about_text_1_en)}</p>
-              <p className="about-text">{t(content.about_text_2, content.about_text_2_en)}</p>
+              <h2 className="about-heading">{t('Ajatonta viestintää.', 'Timeless communication.')}</h2>
+              <p className="about-text">{t(
+                'Jokaisen vahvan brändin taustalla on selkeä visio ja harkittu suunnittelu. Stonehill Architect rakentaa visuaalisia ja tarinallisia kokonaisuuksia arkkitehdin tarkkuudella – yhdistäen estetiikan, strategian ja tunteen yhdeksi ajattomaksi kokonaisuudeksi.',
+                'Behind every strong brand lies a clear vision and considered design. Stonehill Architect builds visual and narrative compositions with an architect’s precision — bringing together aesthetics, strategy and emotion into one timeless whole.'
+              )}</p>
+              <p className="about-text">{t(
+                'Me uskomme, että onnistunut viestintä ei synny sattumalta. Se syntyy ymmärryksestä, yksityiskohdista ja kyvystä nähdä kokonaisuus ennen kuin se on olemassa. Tavoitteemme on luoda sisältöjä ja visuaalisia ratkaisuja, jotka eivät vain näytä hyvältä tänään, vaan tuntuvat oikeilta vielä vuosien päästä.',
+                'We believe successful communication doesn’t happen by chance. It comes from understanding, attention to detail and the ability to see the whole before it exists. Our aim is to create content and visual solutions that not only look good today, but still feel right years from now.'
+              )}</p>
             </div>
           </div>
         </section>
@@ -262,7 +333,7 @@ export default function Page() {
             <h2>{t('Ammattimaiset kuvauspalvelut Seinäjoella', 'Professional photography services in Seinäjoki')}</h2>
             <div className="svc-grid">
               {/* Valokuvaus */}
-              <div className="svc-card">
+              <button type="button" className="svc-card" onClick={() => goService('valokuvaus')}>
                 <h3>{t('Valokuvaus', 'Photography')}</h3>
                 <ul className="svc-list">
                   <li><span>{t('Yo- ja rippikuvat', 'Graduation photos')}</span><span className="svc-price">{content.price_yo}</span></li>
@@ -270,10 +341,11 @@ export default function Page() {
                   <li><span>{t('Yritysvalokuvat', 'Business photos')}</span><span className="svc-price">{content.price_yritys}</span></li>
                   <li><span>{t('Somekuvat', 'Social media photos')}</span><span className="svc-price">{t('Sopimuksen mukaan', 'On request')}</span></li>
                 </ul>
-              </div>
+                <span className="svc-more">{t('Lue lisää →', 'Learn more →')}</span>
+              </button>
 
               {/* Videotuotanto — featured */}
-              <div className="svc-card svc-featured">
+              <button type="button" className="svc-card svc-featured" onClick={() => goService('videotuotanto')}>
                 <h3>{t('Videotuotanto', 'Video production')}</h3>
                 <ul className="svc-list">
                   <li><span>{t('Häävideot', 'Wedding videos')}</span></li>
@@ -284,10 +356,11 @@ export default function Page() {
                   <span className="svc-foot-unit">{t('Hinta alkaen', 'From')}</span>
                   <span className="svc-foot-price">{content.price_video}</span>
                 </div>
-              </div>
+                <span className="svc-more">{t('Lue lisää →', 'Learn more →')}</span>
+              </button>
 
               {/* Some */}
-              <div className="svc-card">
+              <button type="button" className="svc-card" onClick={() => goService('some')}>
                 <h3>{t('Some', 'Social media')}</h3>
                 <ul className="svc-list">
                   <li><span>{t('Sisältösuunnittelu', 'Content planning')}</span></li>
@@ -299,7 +372,8 @@ export default function Page() {
                   <span className="svc-foot-unit">{t('Kuukausihinta', 'Monthly')}</span>
                   <span className="svc-foot-price">{content.price_some}</span>
                 </div>
-              </div>
+                <span className="svc-more">{t('Lue lisää →', 'Learn more →')}</span>
+              </button>
             </div>
           </div>
         </section>
@@ -529,6 +603,49 @@ export default function Page() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* SERVICE DETAIL */}
+      <div id="page-service" className={`page${page === 'service' ? ' active' : ''}`}>
+        {serviceKey && SERVICES[serviceKey] && (() => {
+          const s = SERVICES[serviceKey];
+          const c = lang === 'fi' ? s.fi : s.en;
+          return (
+            <div className="svc-page-wrap">
+              <div className="wrap">
+                <button className="back-btn" onClick={() => { setPage('home'); setTimeout(() => document.getElementById('palvelut')?.scrollIntoView({ behavior: 'smooth' }), 120); }}>
+                  {t('← Takaisin palveluihin', '← Back to services')}
+                </button>
+                <h1 className="svc-page-title">{c.title}</h1>
+                <p className="svc-page-intro">{c.intro}</p>
+
+                <div className="svc-block">
+                  <div className="svc-block-text">
+                    <h3 className="svc-block-h">{c.h1}</h3>
+                    <p className="svc-block-p">{c.p1}</p>
+                  </div>
+                  <div className="svc-block-img svc-img-up">
+                    <Image src={s.img1} alt={c.title} fill sizes="(max-width:900px) 100vw, 50vw" quality={88} />
+                  </div>
+                </div>
+
+                <div className="svc-block svc-block-rev">
+                  <div className="svc-block-img svc-img-down">
+                    <Image src={s.img2} alt={c.title} fill sizes="(max-width:900px) 100vw, 50vw" quality={88} />
+                  </div>
+                  <div className="svc-block-text">
+                    <h3 className="svc-block-h">{c.h2}</h3>
+                    <p className="svc-block-p">{c.p2}</p>
+                  </div>
+                </div>
+
+                <div className="svc-page-cta">
+                  <button className="btn-p" onClick={goBooking}>{t('Varaa kuvaus →', 'Book a shoot →')}</button>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
       </div>
 
       {/* LIGHTBOX */}

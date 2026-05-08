@@ -50,10 +50,11 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,10vw,9rem);line-he
 .about-text{color:rgba(255,255,255,.78);font-size:1.02rem;line-height:1.85;margin-bottom:22px;font-weight:300}
 .about-text:last-child{margin-bottom:0}
 .about-section h2{margin-bottom:32px}
+.about-heading{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(2.8rem,6.5vw,5.4rem);line-height:1;letter-spacing:-0.01em;text-transform:none;color:#fff;margin-bottom:40px}
 
 /* SERVICES — uudistettu kortti-layout */
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
-.svc-card{background:var(--gray);padding:42px 32px;color:#fff;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.06);border-radius:4px;transition:transform .35s,border-color .35s,background .35s}
+.svc-card{background:var(--gray);padding:42px 32px;color:#fff;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.06);border-radius:4px;transition:transform .35s,border-color .35s,background .35s;cursor:pointer;text-align:left;font-family:inherit;width:100%}
 .svc-card:hover{transform:translateY(-4px);border-color:rgba(0,174,239,.35);background:#0d0d14}
 .svc-card h3{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.06em;text-transform:uppercase}
 .svc-card p{color:rgba(255,255,255,.55);font-size:.92rem;line-height:1.7;font-weight:300}
@@ -71,6 +72,34 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.8rem,10vw,9rem);line-he
 .svc-featured h3{color:#fff}
 .svc-featured .svc-price,.svc-featured .svc-foot-price{color:var(--blue)}
 .svc-badge{position:absolute;top:18px;right:18px;background:var(--blue);color:#000;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;padding:5px 11px;border-radius:2px}
+.svc-more{margin-top:8px;color:var(--blue);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;transition:gap .25s,letter-spacing .25s}
+.svc-card:hover .svc-more{letter-spacing:.22em}
+
+/* SERVICE DETAIL PAGE */
+.svc-page-wrap{padding:calc(var(--nav) + 70px) 48px 110px;background:var(--black);position:relative;overflow:hidden}
+.svc-page-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(0,174,239,.05),transparent 65%);pointer-events:none}
+.svc-page-wrap .wrap{position:relative}
+.svc-page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,7rem);letter-spacing:.03em;text-transform:uppercase;line-height:.9;margin:14px 0 26px;color:#fff}
+.svc-page-intro{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:rgba(255,255,255,.82);font-size:clamp(1.2rem,2.4vw,1.7rem);line-height:1.4;max-width:720px;margin-bottom:90px}
+.svc-block{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:120px}
+.svc-block-rev{direction:rtl}
+.svc-block-rev>*{direction:ltr}
+.svc-block-text{padding:20px 0}
+.svc-block-h{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(2rem,4vw,3.4rem);line-height:1.05;color:#fff;margin-bottom:24px;letter-spacing:-0.005em}
+.svc-block-p{color:rgba(255,255,255,.72);font-size:1rem;line-height:1.85;font-weight:300}
+.svc-block-img{position:relative;aspect-ratio:3/4;overflow:hidden;border:1px solid rgba(255,255,255,.06);background:#0a0a0f}
+.svc-block-img img{object-fit:cover;display:block}
+.svc-img-up{transform:translateY(-30px)}
+.svc-img-down{transform:translateY(40px)}
+.svc-page-cta{display:flex;justify-content:center;margin-top:40px}
+@media(max-width:900px){
+  .svc-page-wrap{padding-left:20px;padding-right:20px}
+  .svc-block{grid-template-columns:1fr;gap:30px;margin-bottom:70px}
+  .svc-block-rev{direction:ltr}
+  .svc-block-rev .svc-block-img{order:-1}
+  .svc-img-up,.svc-img-down{transform:none}
+  .svc-page-intro{margin-bottom:50px}
+}
 
 /* FAQ */
 .faq-grid{display:block;margin-top:40px}
