@@ -249,7 +249,6 @@ export default function Page() {
         <section id="about" className="about-section">
           <div className="wrap">
             <div className="about-inner">
-              <span className="tag">{t('Minä', 'About')}</span>
               <h2>{t('Elias Kivimäki', 'Elias Kivimäki')}</h2>
               <p className="about-text">{t(content.about_text_1, content.about_text_1_en)}</p>
               <p className="about-text">{t(content.about_text_2, content.about_text_2_en)}</p>
