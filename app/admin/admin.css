@@ -1,11 +1,11 @@
-.admin-shell{min-height:100vh;background:#050508;color:#fff;font-family:'Instrument Sans',sans-serif;padding:48px 28px;max-width:880px;margin:0 auto}
+.admin-shell{min-height:100vh;background:#050508;color:#fff;font-family:'Instrument Sans',sans-serif;padding:48px 28px;max-width:1080px;margin:0 auto}
 .admin-shell h1{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
 .admin-sub{color:rgba(255,255,255,.5);font-size:.95rem;margin-bottom:28px}
 .admin-status{padding:60px 0;text-align:center;color:rgba(255,255,255,.4)}
 .admin-card{max-width:380px;margin:80px auto;background:#0a0a0f;border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:36px 30px}
 .admin-login form{display:flex;flex-direction:column;gap:14px;margin-top:18px}
 .admin-login label{display:flex;flex-direction:column;gap:6px;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45)}
-.admin-login input,.admin-row input,.admin-row textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:3px;padding:11px 14px;color:#fff;font-family:inherit;font-size:.95rem;font-weight:300;outline:none;transition:border-color .2s,background .2s;width:100%}
+.admin-login input,.admin-row input[type="text"],.admin-row input[type="number"],.admin-row textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:3px;padding:11px 14px;color:#fff;font-family:inherit;font-size:.95rem;font-weight:300;outline:none;transition:border-color .2s,background .2s;width:100%}
 .admin-login input:focus,.admin-row input:focus,.admin-row textarea:focus{border-color:rgba(0,174,239,.6);background:rgba(0,174,239,.04)}
 .admin-row textarea{resize:vertical;min-height:110px;line-height:1.55}
 .admin-login button,.admin-row button{background:#00AEEF;color:#000;border:none;padding:12px 22px;font-family:inherit;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;border-radius:3px;cursor:pointer;transition:background .2s,transform .15s}
@@ -15,15 +15,42 @@
 .admin-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:20px;flex-wrap:wrap}
 .admin-logout{background:transparent;border:1px solid rgba(255,255,255,.18);color:#fff;font-family:inherit;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;padding:9px 16px;border-radius:3px;cursor:pointer;transition:border-color .2s,color .2s}
 .admin-logout:hover{border-color:#00AEEF;color:#00AEEF}
-.admin-grid{display:flex;flex-direction:column;gap:18px}
+
+.admin-sections{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.admin-section{background:#080810;border:1px solid rgba(255,255,255,.06);border-radius:6px;overflow:hidden}
+.admin-section.open{border-color:rgba(0,174,239,.25)}
+.admin-section-head{width:100%;display:flex;justify-content:space-between;align-items:center;background:transparent;border:none;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.1em;text-transform:uppercase;padding:18px 22px;cursor:pointer;text-align:left;transition:background .2s}
+.admin-section-head:hover{background:rgba(0,174,239,.05)}
+.admin-section-chev{font-family:'Instrument Sans',sans-serif;color:rgba(0,174,239,.85);font-size:1.4rem;font-weight:300;line-height:1}
+.admin-section-body{display:flex;flex-direction:column;gap:14px;padding:6px 18px 22px;border-top:1px solid rgba(255,255,255,.05)}
+
 .admin-row{background:#0a0a0f;border:1px solid rgba(255,255,255,.06);border-radius:5px;padding:18px 20px;transition:border-color .25s}
 .admin-row.dirty{border-color:rgba(0,174,239,.5)}
 .admin-row-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:12px}
 .admin-row-head label{font-size:.78rem;letter-spacing:.05em;color:#fff;font-weight:500}
-.admin-key{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem;color:rgba(255,255,255,.32)}
+.admin-key{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.68rem;color:rgba(255,255,255,.32)}
 .admin-row-foot{display:flex;align-items:center;gap:14px;margin-top:12px}
 .admin-ok{color:#3ddc8a;font-size:.78rem;letter-spacing:.04em;font-weight:500}
-@media(max-width:560px){
+
+/* OFFSET EDITOR */
+.admin-offset{padding:20px}
+.offset-grid{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;margin-top:6px}
+.offset-pad{position:relative;width:160px;height:160px;background:#050509;border:1px solid rgba(255,255,255,.1);border-radius:4px;cursor:crosshair;flex-shrink:0;user-select:none}
+.offset-pad-cross::before,.offset-pad-cross::after{content:'';position:absolute;background:rgba(255,255,255,.08)}
+.offset-pad-cross::before{top:50%;left:0;right:0;height:1px}
+.offset-pad-cross::after{left:50%;top:0;bottom:0;width:1px}
+.offset-pad-dot{position:absolute;width:14px;height:14px;background:#00AEEF;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 12px rgba(0,174,239,.6);pointer-events:none;transition:left .08s linear,top .08s linear}
+.offset-controls{display:flex;flex-direction:column;gap:12px}
+.offset-controls label{display:flex;flex-direction:column;gap:6px;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.offset-row{display:grid;grid-template-columns:1fr 86px;gap:10px;align-items:center}
+.offset-row input[type="range"]{accent-color:#00AEEF;width:100%}
+.offset-row input[type="number"]{padding:8px 10px;font-size:.85rem}
+.offset-reset{align-self:flex-start;background:transparent!important;color:rgba(255,255,255,.65)!important;border:1px solid rgba(255,255,255,.18)!important;padding:7px 14px!important;font-size:.65rem!important;font-weight:500!important;letter-spacing:.14em!important}
+.offset-reset:hover{border-color:#00AEEF!important;color:#00AEEF!important;transform:none!important;background:transparent!important}
+
+@media(max-width:680px){
   .admin-shell{padding:32px 16px}
   .admin-card{margin:30px auto;padding:28px 22px}
+  .offset-grid{grid-template-columns:1fr}
+  .offset-pad{width:140px;height:140px;justify-self:center}
 }
